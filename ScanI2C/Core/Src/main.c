@@ -113,10 +113,10 @@ int main(void)
     	if (ret != HAL_OK) /* No ACK Received At That Address */
     	{
     		HAL_UART_Transmit(&huart2, Space, sizeof(Space), 10000);
-        }
+      }
     	else if(ret == HAL_OK)
     	{
-    		snprintf(Buffer, BUF_SIZE - 1, "0x%X", i);
+    		snprintf(Buffer, BUF_SIZE - 1, "0x%.2X", i);
     		HAL_UART_Transmit(&huart2, Buffer, sizeof(Buffer), 10000);
     	}
     }
