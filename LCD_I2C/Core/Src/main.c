@@ -22,18 +22,22 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "i2c-lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -42,6 +46,7 @@ UART_HandleTypeDef huart2;
 PCD_HandleTypeDef hpcd_USB_FS;
 
 /* USER CODE BEGIN PV */
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -51,16 +56,13 @@ static void MX_I2C1_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USB_PCD_Init(void);
 /* USER CODE BEGIN PFP */
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-  uint8_t i = 0, ret;
-  #define BUF_SIZE 25
-  unsigned char Buffer[BUF_SIZE] = {0};
-  unsigned char Space[]    = " - ";
-  unsigned char StartMSG[] = "Début du scan du bus I2C:\r\n";
-  unsigned char EndMSG[]   = "\r\nFin de scan\r\n\r\n";
+int row=0;
+int col=0;
 
 /* USER CODE END 0 */
 
@@ -72,6 +74,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -80,12 +83,14 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -95,25 +100,30 @@ int main(void)
   MX_USB_PCD_Init();
 
   /* USER CODE BEGIN 2 */
-/*-[ I2C Bus Scanning ]-*/
-  HAL_UART_Transmit(&huart2, StartMSG, sizeof(StartMSG), 10000);
- 
-for(i=1; i<128; i++)
-    {
-    	ret = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
-    	if (ret != HAL_OK) /* No ACK Received At That Address */
-    	{
-    		HAL_UART_Transmit(&huart2, Space, sizeof(Space), 10000);
-        }
-    	else if(ret == HAL_OK)
-    	{
-    		//snprintf(Buffer, BUF_SIZE - 1, "0x%.2X", i);
-        snprintf(Buffer, BUF_SIZE - 1, "0x%.2X", i);
-    		HAL_UART_Transmit(&huart2, Buffer, sizeof(Buffer), 10000);
-    	}
-    }
-    HAL_UART_Transmit(&huart2, EndMSG, sizeof(EndMSG), 10000);
-    /*--[ Scanning Done ]--*/
+  lcd_init ();
+  lcd_put_cur(0, 0);
+  lcd_send_string ("Bienvenue");
+  lcd_put_cur(1, 0);
+  lcd_send_string("STM32F303");
+
+//// Display Number
+//  lcd_init();
+//  int num = 1234;
+//  char numChar[5];
+//  sprintf(numChar, "%d", num);
+//  lcd_put_cur(0, 0);
+//  lcd_send_string (numChar);
+
+//// Display Float
+//  lcd_init();
+//  float flt = 12.345;
+//  char fltChar[6];
+//  sprintf(fltChar, "%.3f", flt);
+//  lcd_put_cur(0, 0);
+//  lcd_send_string (fltChar);
+
+
+
 
   /* USER CODE END 2 */
 
@@ -194,7 +204,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x2000090E;
+  hi2c1.Init.Timing = 0x00201D2B;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
