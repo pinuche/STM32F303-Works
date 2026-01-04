@@ -23,21 +23,19 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "i2c-lcd.h"
+#include "stm32f3xx_hal.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -46,7 +44,6 @@ UART_HandleTypeDef huart2;
 PCD_HandleTypeDef hpcd_USB_FS;
 
 /* USER CODE BEGIN PV */
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -55,8 +52,11 @@ static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USB_PCD_Init(void);
-/* USER CODE BEGIN PFP */
+void affiche_number(void);
+void affiche_float(void);
+void affiche_welcome(void);
 
+/* USER CODE BEGIN PFP */
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -74,7 +74,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  #define MYDELAY 1000
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -83,14 +83,12 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -98,42 +96,66 @@ int main(void)
   MX_I2C1_Init();
   MX_USART2_UART_Init();
   MX_USB_PCD_Init();
-
+    
   /* USER CODE BEGIN 2 */
-  lcd_init ();
+    
+lcd_init();
+
+void affiche_welcome(void)
+{
   lcd_put_cur(0, 0);
-  lcd_send_string ("Bienvenue");
+  lcd_send_string ("Welcome to my");
   lcd_put_cur(1, 0);
-  lcd_send_string("STM32F303");
+  lcd_send_string("Discovery F303");
+}
 
-//// Display Number
-//  lcd_init();
-//  int num = 1234;
-//  char numChar[5];
-//  sprintf(numChar, "%d", num);
-//  lcd_put_cur(0, 0);
-//  lcd_send_string (numChar);
+void affiche_number(void)
+{
+//Display Number
+  int num = (65535);
+  char numChar[5];
+  sprintf(numChar, "%d", num);
+  lcd_put_cur(0, 0);
+  lcd_send_string (numChar);
+  lcd_put_cur(1,0);
+  lcd_send_string("Affiche entier");
+}
 
-//// Display Float
-//  lcd_init();
-//  float flt = 12.345;
-//  char fltChar[6];
-//  sprintf(fltChar, "%.3f", flt);
-//  lcd_put_cur(0, 0);
-//  lcd_send_string (fltChar);
-
-
-
+// Display Float
+void affiche_float(void)
+{
+  float flt = 25.345;
+  char fltChar[6];
+  sprintf(fltChar, "%.2f", flt);
+  lcd_put_cur(0, 0);
+  lcd_send_string (fltChar);
+  lcd_put_cur(1,0);
+  lcd_send_string("Affiche flottant");
+}
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-    /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+  {
+    affiche_welcome();
+    HAL_Delay(MYDELAY);
+    lcd_clear();
+
+    affiche_float();
+    HAL_Delay(MYDELAY);
+    lcd_clear();
+
+    affiche_number();
+    HAL_Delay(MYDELAY);
+    lcd_clear();
+
+    /* USER CODE END WHILE */
+  
+  
+  /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
