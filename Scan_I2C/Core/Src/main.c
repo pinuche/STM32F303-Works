@@ -56,21 +56,26 @@ static void MX_USB_PCD_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-  uint8_t i = 0, ret;
+  
   #define BUF_SIZE 25
+  #define MY_UART &huart2
+  #define MY_I2C &hi2c1
+  uint8_t i = 0, ret;
   uint8_t Buffer[BUF_SIZE] = {0};
   unsigned char Space[]    = "  -  ";
   const char StartMSG[] = "Début du scan du bus I2C:\r\n";
   const char EndMSG[]   = "\r\nFin de scan\r\n\r\n";
+  #define HAL_DELAY_TO_OUPUT 10000
+
+  int __io_putchar(int ch)
+  {
+    HAL_UART_Transmit(MY_UART, (const uint8_t *)&ch, 1, HAL_DELAY_TO_OUPUT);
+    return(1);
+  }
 
 /* USER CODE END 0 */
 
-#define HAL_DELAY_TO_OUPUT 10000
-int __io_putchar(int ch)
-{
-  HAL_UART_Transmit(&huart2, (const uint8_t *)&ch, 1, HAL_DELAY_TO_OUPUT);
-  return(1);
-}
+
 
 /**
   * @brief  The application entry point.
@@ -109,20 +114,20 @@ int main(void)
 
   for(i=0; i <= 0x7F; i++)
   {
-      ret = HAL_I2C_IsDeviceReady(&hi2c1, (uint16_t)(i<<1), 3, 5);
+      ret = HAL_I2C_IsDeviceReady(MY_I2C, (uint16_t)(i<<1), 3, 5);
       if((i%8 == 0) && (i != 0))
       {
         printf("\r\n");
       }
     	if (ret != HAL_OK) /* No ACK Received At That Address */
     	{
-    		HAL_UART_Transmit(&huart2, Space, sizeof(Space), 10000);
+    		HAL_UART_Transmit(MY_UART, Space, sizeof(Space), 10000);
         }
     	else if(ret == HAL_OK)
     	{
     		//snprintf(Buffer, BUF_SIZE - 1, "0x%.2X", i);
         snprintf((char *)Buffer, BUF_SIZE - 1, "0x%.2X ", i);
-    		HAL_UART_Transmit(&huart2, Buffer, sizeof(Buffer), 10000);
+    		HAL_UART_Transmit(MY_UART, Buffer, sizeof(Buffer), 10000);
     	}
     }
     // HAL_UART_Transmit(&huart2, EndMSG, sizeof(EndMSG), 10000);
