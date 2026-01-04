@@ -63,6 +63,57 @@ void affiche_welcome(void);
 /* USER CODE BEGIN 0 */
 int row=0;
 int col=0;
+#define HAL_DELAY_TO_OUPUT 10000
+int __io_putchar(int ch)
+{
+  HAL_UART_Transmit(&huart2, (const uint8_t *)&ch, 1, HAL_DELAY_TO_OUPUT);
+  return(1);
+}
+
+void affiche_welcome(void)
+{
+  lcd_put_cur(0, 0);
+  lcd_send_string ("Welcome to my");
+  lcd_put_cur(1, 0);
+  lcd_send_string("Discovery F303");
+}
+
+void affiche_number(void)
+{
+//Display Number
+  int num = 65535;
+  char numChar[6] = {0};
+  sprintf(numChar, "%d", num);
+  lcd_put_cur(0, 0);
+  lcd_send_string (numChar);
+  lcd_put_cur(1,0);
+  lcd_send_string("Affiche entier");
+}
+
+// Display Float
+void affiche_float(void)
+{
+  /*
+  float flt = 25.345;
+  char fltChar[] ={"........................."};
+  int nb_char = sprintf(fltChar, "%f", flt);
+  printf("nb char : 0x%x \r\n", nb_char);
+  lcd_put_cur(0, 0);
+  lcd_send_string (fltChar);
+  lcd_put_cur(1,0);
+  lcd_send_string("Affiche flottant");
+  */
+  char buffer[12];
+  static int8_t temperature_en_10eme = 0;
+  temperature_en_10eme += 1;
+  uint8_t degres = temperature_en_10eme / 10;
+  uint8_t dixieme = temperature_en_10eme - degres * 10;
+  sprintf(buffer, "%d.%.1d", degres, dixieme);
+  lcd_put_cur(0, 0);
+  lcd_send_string (buffer);
+  lcd_put_cur(1,0);
+  lcd_send_string("Affiche flottant");
+}
 
 /* USER CODE END 0 */
 
@@ -100,38 +151,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
     
 lcd_init();
-
-void affiche_welcome(void)
-{
-  lcd_put_cur(0, 0);
-  lcd_send_string ("Welcome to my");
-  lcd_put_cur(1, 0);
-  lcd_send_string("Discovery F303");
-}
-
-void affiche_number(void)
-{
-//Display Number
-  int num = (65535);
-  char numChar[5];
-  sprintf(numChar, "%d", num);
-  lcd_put_cur(0, 0);
-  lcd_send_string (numChar);
-  lcd_put_cur(1,0);
-  lcd_send_string("Affiche entier");
-}
-
-// Display Float
-void affiche_float(void)
-{
-  float flt = 25.345;
-  char fltChar[6];
-  sprintf(fltChar, "%.2f", flt);
-  lcd_put_cur(0, 0);
-  lcd_send_string (fltChar);
-  lcd_put_cur(1,0);
-  lcd_send_string("Affiche flottant");
-}
 
   /* USER CODE END 2 */
 
