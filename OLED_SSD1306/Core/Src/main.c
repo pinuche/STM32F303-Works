@@ -101,12 +101,12 @@ int main(void)
   HAL_Delay (5000);
   SSD1306_Stopscroll();
     
-//  SSD1306_Init (); // initialise the display
-//  SSD1306_GotoXY (10,10); // goto 10, 10
-//  SSD1306_Puts ("HELLO", &Font_11x18, 1); // print Hello
-//  SSD1306_GotoXY (10, 30);
-//  SSD1306_Puts ("WORLD !!", &Font_11x18, 1);
-//  SSD1306_UpdateScreen(); // update screen
+  SSD1306_Init (); // initialise the display
+  SSD1306_GotoXY (10,10); // goto 10, 10
+  SSD1306_Puts ("HELLO", &Font_11x18, 1); // print Hello
+  SSD1306_GotoXY (10, 30);
+  SSD1306_Puts ("WORLD !!", &Font_11x18, 1);
+  SSD1306_UpdateScreen(); // update screen
 
 //  int num = 123456; float flt = 123.45;
 //  char bufnum[7]; char bufflt[7];
@@ -133,6 +133,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    /*
+    
 	  SSD1306_Clear();
 	  SSD1306_DrawBitmap(0,0,horse1,128,64,1);
 	  SSD1306_UpdateScreen();
@@ -172,7 +174,7 @@ int main(void)
 	  SSD1306_Clear();
 	  SSD1306_DrawBitmap(0,0,horse10,128,64,1);
 	  SSD1306_UpdateScreen();
-
+*/
 	  //// HORSE ANIMATION ENDS //////
   }
   
