@@ -112,7 +112,7 @@ void affiche_float(void)
   lcd_put_cur(0, 0);
   lcd_send_string (buffer);
   lcd_put_cur(1,0);
-  lcd_send_string("Affiche flottant");
+  lcd_send_string("Affiche décimal");
 }
 
 /* USER CODE END 0 */
