@@ -22,10 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
-#include "ssd1306.h"
-#include "fonts.h"
-#include "bitmap.h"
-#include "horse_anim.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,41 +86,6 @@ int main(void)
   MX_USART2_UART_Init();
   
   /* USER CODE BEGIN 2 */
-  //SSD1306_Init();
-  //SSD1306_DrawBitmap(0, 0, logo, 128, 64, 1);
-  //SSD1306_UpdateScreen(); // update screen
-
-  //SSD1306_ScrollRight(0x00, 0x07);    // scroll entire screen (Page0 to Page7) right
-  //HAL_Delay (5000);
-  //SSD1306_Stopscroll();
-
-  //SSD1306_ScrollLeft(0x00, 0x07);    // scroll entire screen (Page0 to Page7) right
-  //HAL_Delay (5000);
-  //SSD1306_Stopscroll();
-    
- // SSD1306_Init (); // initialise the display
- // SSD1306_GotoXY (10,10); // goto 10, 10
- // SSD1306_Puts ("HELLO", &Font_11x18, 1); // print Hello
- // SSD1306_GotoXY (10, 30);
- // SSD1306_Puts ("WORLD !!", &Font_11x18, 1);
- // SSD1306_UpdateScreen(); // update screen
-
- int num = 123456; float flt = 123.45;
- char bufnum[7]; char bufflt[7];
- SSD1306_Init (); // initialise the display
- sprintf (bufnum, "%d", num);
- sprintf (bufflt, "%.2f", flt);
- SSD1306_GotoXY (10,10); // goto 10, 10
- SSD1306_Puts (bufnum, &Font_11x18, 1); // print Hello
- SSD1306_GotoXY (10, 30);
- SSD1306_Puts (bufflt, &Font_11x18, 1);
- SSD1306_UpdateScreen(); // update screen
-
-//  SSD1306_Init();
-//  SSD1306_DrawBitmap(0, 0, logo, 128, 64, 1);
-//  SSD1306_UpdateScreen(); // update screen
-
-  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -134,49 +96,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    /*
-    
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse1,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse2,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse3,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse4,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse5,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse6,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse7,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse8,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse9,128,64,1);
-	  SSD1306_UpdateScreen();
-
-	  SSD1306_Clear();
-	  SSD1306_DrawBitmap(0,0,horse10,128,64,1);
-	  SSD1306_UpdateScreen();
-*/
-	  //// HORSE ANIMATION ENDS //////
   }
   
   /* USER CODE END 3 */
