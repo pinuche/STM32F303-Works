@@ -56,7 +56,6 @@ static void MX_USB_PCD_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-  
   #define BUF_SIZE 25
   #define MY_UART &huart2
   #define MY_I2C &hi2c1
@@ -65,13 +64,14 @@ static void MX_USB_PCD_Init(void);
   unsigned char Space[]    = "  -  ";
   const char StartMSG[] = "Début du scan du bus I2C:\r\n";
   const char EndMSG[]   = "\r\nFin de scan\r\n\r\n";
+ 
   #define HAL_DELAY_TO_OUPUT 10000
 
   int __io_putchar(int ch)
-  {
+    {
     HAL_UART_Transmit(MY_UART, (const uint8_t *)&ch, 1, HAL_DELAY_TO_OUPUT);
     return(1);
-  }
+    }
 
 /* USER CODE END 0 */
 
